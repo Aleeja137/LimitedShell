@@ -64,8 +64,8 @@ int read_args(int* argcp, char* args[], int max, int* eofp)
 
 int execute(int argc, char *argv[])
 {  
-    //
-    return -1;
+   static char *argv2[] = {"echoSimple","Hey muy buenas",NULL};
+   execv("/home/alejandro/Desktop/Universidad/IOS/LimitedShell/echoSimple",argv2);
 }
 
 main ()
