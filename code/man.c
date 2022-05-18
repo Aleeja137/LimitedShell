@@ -1,0 +1,1 @@
+//read from manual.txt with lseek and wait for close (q)

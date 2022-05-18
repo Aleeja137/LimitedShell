@@ -11,6 +11,8 @@
 #define MAXLINE 200
 #define MAXARGS 20
 
+#define MAX_CHARS 200
+
 /////////// reading commands:
 
 int read_args(int* argcp, char* args[], int max, int* eofp)
@@ -71,59 +73,76 @@ int execute(int argc, char *argv[])
    }
      
 
-   static char *argv2 = {"nombrePrograma","primer","segundo"};
+   char Path[MAX_CHARS];
    
-
-   if (strcmp(argv[0],"ls")==0){
-
-      int pid = fork();
-      if (pid==0){
-         execvp("/home/alejandro/Desktop/Universidad/IOS/LimitedShell/bin/ls",argv);
+   Path[0] = 0;
+   strcat(Path,"/home/alejandro/Desktop/Universidad/IOS/LimitedShell/bin/");
+   strcat(Path,argv[0]);
+   
+   printf("Executing %s\n",Path);
+   int pid = fork();
+   if (pid==0){
+      if(execvp(Path,argv)>0)
+      {
          exit(EXIT_SUCCESS);
       } else {
-         int child_status;
-         waitpid(pid,&child_status,0);
+         printf("Unknown command %s\n",argv[0]);
       }
-
-   } else if (strcmp(argv[0],"cat")==0)
-   {
-      
-      int pid = fork();
-      if (pid==0){
-         execvp("/home/alejandro/Desktop/Universidad/IOS/LimitedShell/bin/cat",argv);
-         exit(EXIT_SUCCESS);
-      } else {
-         int child_status;
-         waitpid(pid,&child_status,0);
-      }
-      
-
-   } else if (strcmp(argv[0],"link")==0)
-   {
-      int pid = fork();
-      if (pid==0){
-         execvp("/home/alejandro/Desktop/Universidad/IOS/LimitedShell/bin/link",argv);
-         exit(EXIT_SUCCESS);
-      } else {
-         int child_status;
-         waitpid(pid,&child_status,0);
-      }
-      
-
-   } else if (strcmp(argv[0],"cp")==0)
-   {
-      int pid = fork();
-      if (pid==0){
-         execvp("/home/alejandro/Desktop/Universidad/IOS/LimitedShell/bin/cp",argv);
-         exit(EXIT_SUCCESS);
-      } else {
-         int child_status;
-         waitpid(pid,&child_status,0);
-      }
-      
    } else {
-      printf("Invalid command %s\n",argv[0]);
+      int child_status;
+      waitpid(pid,&child_status,0);
    }
+
+   // if (strcmp(argv[0],"ls")==0){
+
+   //    int pid = fork();
+   //    if (pid==0){
+   //       execvp("/home/alejandro/Desktop/Universidad/IOS/LimitedShell/bin/ls",argv);
+   //       exit(EXIT_SUCCESS);
+   //    } else {
+   //       int child_status;
+   //       waitpid(pid,&child_status,0);
+   //    }
+
+   // } else if (strcmp(argv[0],"cat")==0)
+   // {
+      
+   //    int pid = fork();
+   //    if (pid==0){
+   //       execvp("/home/alejandro/Desktop/Universidad/IOS/LimitedShell/bin/cat",argv);
+   //       exit(EXIT_SUCCESS);
+   //    } else {
+   //       int child_status;
+   //       waitpid(pid,&child_status,0);
+   //    }
+      
+
+   // } else if (strcmp(argv[0],"link")==0)
+   // {
+   //    int pid = fork();
+   //    if (pid==0){
+   //       execvp("/home/alejandro/Desktop/Universidad/IOS/LimitedShell/bin/link",argv);
+   //       exit(EXIT_SUCCESS);
+   //    } else {
+   //       int child_status;
+   //       waitpid(pid,&child_status,0);
+   //    }
+      
+
+   // } else if (strcmp(argv[0],"cp")==0)
+   // {
+   //    int pid = fork();
+   //    if (pid==0){
+   //       execvp("/home/alejandro/Desktop/Universidad/IOS/LimitedShell/bin/cp",argv);
+   //       exit(EXIT_SUCCESS);
+   //    } else {
+   //       int child_status;
+   //       waitpid(pid,&child_status,0);
+   //    }
+      
+   // } else {
+   //    printf("Invalid command %s\n",argv[0]);
+   // }
 
    
    

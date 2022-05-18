@@ -1,0 +1,84 @@
+ls - Manual Page
+
+NAME
+
+    List (ls) directory contents
+
+SYNOPSIS 
+
+    This command lists all the entries on a directory, both files and folders
+
+DESCRIPTION
+
+    Arguments 
+        ls demands the path to the directory from wich the list of elements is desired (ex: ls path/path2/path3). 
+    Options
+        -l Provides more information about the entries, such as name (same as without -l), size in bytes of the entry, last modified date and '*' character if it is a folder.
+        Also, -l can be written in any order (ls path -l or ls -l path).
+AUTHOR
+    Alejandro Perez Casas
+
+
+cat - Manual Page
+
+NAME 
+
+    Concatenate (cat) files and print on standard output
+
+SYNOPSIS
+
+    This command allows the user to display in standard output the contents of a file
+
+DESCRIPTION
+    Arguments 
+        cat demands a path to the file whose contents will be written on the standard output (ex: cat path/file.txt)
+    Options
+        cat allows writting in append mode to another file by adding a second path (ex: cat path1 path2).
+
+AUTHOR
+    Alejandro Perez Casas
+
+
+
+
+cp - Manual Page
+
+NAME 
+
+    Copy (cp) one file to another
+
+SYNOPSIS
+
+    This command allows the user to copy one file to another, in absolute mode, that is, deleting its contents and making an exact copy.
+
+DESCRIPTION
+    Arguments 
+        cp demans two path inputs, the first corresponds to the original file, the second to the new file. If the second path does not exist, if permissions allow it, it will create the file and then copy (cp original.txt copy.txt)
+    Options
+        This command does not include extra options
+
+AUTHOR
+    Alejandro Perez Casas
+
+
+
+link - Manual Page
+
+NAME
+
+    Hard link (link) one file to a name
+
+SYNOPSIS
+
+    this command creates a hard link of a file
+
+DESCRIPTION
+    Arguments
+        link demands the path to the file to wich the hard link will be created, and also the name (path) of the hard link (ex: link /path/original.txt /path2/newName.txt)
+    Options
+        -u requires the same arguments, but it unlinks the name from the file, that is, deletes the hard link (if arguments are valid)
+
+AUTHOR
+    Alejandro Perez Casas
+
+
