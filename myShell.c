@@ -64,7 +64,67 @@ int read_args(int* argcp, char* args[], int max, int* eofp)
 
 int execute(int argc, char *argv[])
 {  
-   execv("/home/alejandro/Desktop/Universidad/IOS/LimitedShell/myLs",argv);
+   
+   for (size_t i = 0; i < argc; i++)
+   {
+      printf("Value of argument %d is %s\n",i,argv[i]);
+   }
+     
+
+   static char *argv2 = {"nombrePrograma","primer","segundo"};
+   
+
+   if (strcmp(argv[0],"ls")==0){
+
+      int pid = fork();
+      if (pid==0){
+         execvp("/home/alejandro/Desktop/Universidad/IOS/LimitedShell/bin/ls",&argv[1]);
+         exit(EXIT_SUCCESS);
+      } else {
+         int child_status;
+         waitpid(pid,&child_status,0);
+      }
+
+   } else if (strcmp(argv[0],"cat")==0)
+   {
+      
+      int pid = fork();
+      if (pid==0){
+         execvp("/home/alejandro/Desktop/Universidad/IOS/LimitedShell/bin/cat",&argv[1]);
+         exit(EXIT_SUCCESS);
+      } else {
+         int child_status;
+         waitpid(pid,&child_status,0);
+      }
+      
+
+   } else if (strcmp(argv[0],"link")==0)
+   {
+      int pid = fork();
+      if (pid==0){
+         execvp("/home/alejandro/Desktop/Universidad/IOS/LimitedShell/bin/link",&argv[1]);
+         exit(EXIT_SUCCESS);
+      } else {
+         int child_status;
+         waitpid(pid,&child_status,0);
+      }
+      
+
+   } else if (strcmp(argv[0],"cp")==0)
+   {
+      int pid = fork();
+      if (pid==0){
+         execvp("/home/alejandro/Desktop/Universidad/IOS/LimitedShell/bin/cp",&argv[1]);
+         exit(EXIT_SUCCESS);
+      } else {
+         int child_status;
+         waitpid(pid,&child_status,0);
+      }
+      
+   }
+
+   
+   
 }
 
 main ()
@@ -77,7 +137,15 @@ main ()
    while (1) {
       write(0,Prompt, strlen(Prompt));
       if (read_args(&argc, args, MAXARGS, &eof) && argc > 0) {
-         execute(argc, args);
+
+         //TODO No detecta el exit
+         if (strcmp(args[0],"exit"))
+         {
+            exit(EXIT_SUCCESS);
+         } else {
+            execute(argc, args);
+         }
+         
       }
       if (eof) exit(0);
    }
