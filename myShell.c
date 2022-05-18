@@ -6,6 +6,8 @@
 #include <unistd.h>
 #include <string.h>
 #include <errno.h>
+#include <sys/wait.h>
+#include <unistd.h>
 
 #define error(a) {perror(a); exit(1);};
 #define MAXLINE 200
@@ -80,6 +82,7 @@ int execute(int argc, char *argv[])
    strcat(Path,argv[0]);
    
    printf("Executing %s\n",Path);
+   pid_t cpid;
    int pid = fork();
    if (pid==0){
       if(execvp(Path,argv)>0)
@@ -87,65 +90,12 @@ int execute(int argc, char *argv[])
          exit(EXIT_SUCCESS);
       } else {
          printf("Unknown command %s\n",argv[0]);
+         exit(EXIT_FAILURE);
       }
    } else {
-      int child_status;
-      waitpid(pid,&child_status,0);
+      cpid = wait(NULL);
    }
 
-   // if (strcmp(argv[0],"ls")==0){
-
-   //    int pid = fork();
-   //    if (pid==0){
-   //       execvp("/home/alejandro/Desktop/Universidad/IOS/LimitedShell/bin/ls",argv);
-   //       exit(EXIT_SUCCESS);
-   //    } else {
-   //       int child_status;
-   //       waitpid(pid,&child_status,0);
-   //    }
-
-   // } else if (strcmp(argv[0],"cat")==0)
-   // {
-      
-   //    int pid = fork();
-   //    if (pid==0){
-   //       execvp("/home/alejandro/Desktop/Universidad/IOS/LimitedShell/bin/cat",argv);
-   //       exit(EXIT_SUCCESS);
-   //    } else {
-   //       int child_status;
-   //       waitpid(pid,&child_status,0);
-   //    }
-      
-
-   // } else if (strcmp(argv[0],"link")==0)
-   // {
-   //    int pid = fork();
-   //    if (pid==0){
-   //       execvp("/home/alejandro/Desktop/Universidad/IOS/LimitedShell/bin/link",argv);
-   //       exit(EXIT_SUCCESS);
-   //    } else {
-   //       int child_status;
-   //       waitpid(pid,&child_status,0);
-   //    }
-      
-
-   // } else if (strcmp(argv[0],"cp")==0)
-   // {
-   //    int pid = fork();
-   //    if (pid==0){
-   //       execvp("/home/alejandro/Desktop/Universidad/IOS/LimitedShell/bin/cp",argv);
-   //       exit(EXIT_SUCCESS);
-   //    } else {
-   //       int child_status;
-   //       waitpid(pid,&child_status,0);
-   //    }
-      
-   // } else {
-   //    printf("Invalid command %s\n",argv[0]);
-   // }
-
-   
-   
 }
 
 main ()
