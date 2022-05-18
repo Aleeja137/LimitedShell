@@ -132,6 +132,11 @@ int main(int argc, char **argv){
     {
         result = readDirectory(argv[1],1);
     }
+    else
+    {
+        printf("ls error: too many arguments for function call\n");
+        exit(EXIT_FAILURE);
+    }
     
 
     if(result<0){  // Invalid path
