@@ -1,0 +1,35 @@
+When a program is wanted to execute, create process entry in process list, allocate memory for it, load code from disk to memory, locate entry point, set up stack pointer, execute main(). When finished (return), free memory of process, clear from process list.
+To control access to operations for the user, we divide the process’ execution in user and kernel mode. Kernel can do everything. The user can do now restricted operations using system calls. When executing a System Call, the program executes a trap function. Elevates the privilege, and if allowed, does all operations. Then return-from-trap operation is executed to lower privileges. Kernel saves enough registers of process in Kernel Stack, for the return to work properly. What code to execute when trap function is met? A trap table indicates it, initialized when booting the computer (boots in kernel mode). After booting, the OS is run. Allocate memory, etc… Then return-from-trap. When system call, trap, execute routine, return, repeat. When exit trap is met, free memory and entry from list. 
+If a process is running in the CPU, the OS isn’t, so it can’t change the running process. We can have the cooperative approach (OS only regains control after system call or error) or Non-cooperative approach (interruptions are made every few milliseconds. At boot time the interruption routine is specified, as well as timer initialized). When interrupting, enough information about the current running process is saved so it can be resumed later, this is called context switch. 
+All register info is saved to the kernel stack: registers, PC, kernel stack pointer to current program; and switch them to the new one.  
+Limited Direct Execution (READ)
+
+Files and Directories
+Filters and redirections
+File System characteristics
+File System storage
+File System operations
+File Access and permissions
+Address Spaces
+Address Translation
+Reentrant function
+ELF Files on Linux?
+Static vs dynamic libraries
+Process
+Concurrency and Threads
+IPC
+IPC 2
+IPC in Linux, Shared storage
+IPC in Linux, Pipes and message queues
+IPC in Linux,  Sockets and Signals
+HEEEEEEEEEEEEEEEEEEEEEEEEEEEe
+
+
+
+
+
+
+
+
+
+svsdrfvbsdjunbioùinsedrògvinesogvinesòǵjivn
