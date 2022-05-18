@@ -86,7 +86,7 @@ int main(int argc, char **argv){
 
     // In the main method, we will just check if the input command is valid
 
-   int result=1;
+    int result=1;
 
     if (argc<1) //internal error, can ingore
     {
