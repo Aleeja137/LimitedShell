@@ -3,31 +3,48 @@
 #include <string.h>
 #include <dirent.h>
 #include <errno.h>
+#include <sys/stat.h>
+#include <unistd.h>
+#include <limits.h>  
+
+#define MAX_CHARS 200
 
 
 
-int read(char *path, int longVersion){
+int readDirectory(char *path, int longVersion){
 
 
     DIR *dp;
     struct dirent *dirp;
     dp = opendir(path);
+    char Path[MAX_CHARS];
+    int Tmp;
+    struct stat Stat;
 
     if(dp){ //directory exists
         if (longVersion==1)
-        {
-            while ((dirp = readdir(dp)) != NULL){
-                #if defined _DIRENT_HAVE_D_TYPE
-                if (dirp->d_type==4)
-                {
-                    printf("%s d\n", dirp->d_name);
-                } else if (dirp->d_type==8)
-                {
-                    printf("%s f\n", dirp->d_name);
+        {   
+            while (1)  {
+                dirp = readdir(dp);
+                if (dirp == 0) break;  /* reached end of directory entries */
+                /* process file (other than . and ..) */
+                if (strcmp(dirp->d_name,".") != 0 &&
+                    strcmp(dirp->d_name,"..") != 0)  {
+                    /* print file name */
+                    printf("%s",dirp->d_name);
+                    /* build full path name of the file, for stat() */
+                    Path[0] = 0;
+                    strcat(Path,path);
+                    strcat(Path,"/");
+                    strcat(Path,dirp->d_name);
+                        Tmp = stat(Path,&Stat); 
+                        /* Stat now contains lots of info about the file,
+                            e.g. its size, though we are not interested in
+                            most of that info here */
+                        if (S_ISDIR(Stat.st_mode)) printf("*");
+                        printf("\n");
                 }
-                #endif
             }
-            closedir(dp);
             exit(EXIT_SUCCESS);
         } else if (longVersion==0)
         {
@@ -76,7 +93,7 @@ int main(int argc, char **argv){
     
     else if (argc==2)  //ls path
     {
-        result = read(argv[1],0);
+        result = readDirectory(argv[1],0);
     }
     
 
@@ -87,11 +104,11 @@ int main(int argc, char **argv){
     }
     else if (argc==3 && strcmp(argv[1],"-l")==0 && strcmp(argv[2],"-l")!=0) //ls -l path
     {
-        result = read(argv[2],1);
+        result = readDirectory(argv[2],1);
     }
     else if (argc==3 && strcmp(argv[1],"-l")!=0 && strcmp(argv[2],"-l")==0) //ls path -l
     {
-        result = read(argv[1],1);
+        result = readDirectory(argv[1],1);
     }
     
 
