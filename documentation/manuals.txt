@@ -1,4 +1,13 @@
-ls - Manual Page
+Welcome to the manual page!!!
+In this manual we cover the following commands:
+    - ls
+    - cat
+    - link
+    - cp
+
+Press 'q' to exit, thank you!!!
+--------------------------------------------------------------------------------------------------------------------------------
+ls - Manual Page [q to exit]
 
 NAME
 
@@ -9,7 +18,6 @@ SYNOPSIS
     This command lists all the entries on a directory, both files and folders
 
 DESCRIPTION
-
     Arguments 
         ls demands the path to the directory from wich the list of elements is desired (ex: ls path/path2/path3). 
     Options
@@ -17,9 +25,8 @@ DESCRIPTION
         Also, -l can be written in any order (ls path -l or ls -l path).
 AUTHOR
     Alejandro Perez Casas
-
-
-cat - Manual Page
+--------------------------------------------------------------------------------------------------------------------------------
+cat - Manual Page [q to exit]
 
 NAME 
 
@@ -37,11 +44,8 @@ DESCRIPTION
 
 AUTHOR
     Alejandro Perez Casas
-
-
-
-
-cp - Manual Page
+--------------------------------------------------------------------------------------------------------------------------------
+cp - Manual Page [q to exit]
 
 NAME 
 
@@ -59,10 +63,8 @@ DESCRIPTION
 
 AUTHOR
     Alejandro Perez Casas
-
-
-
-link - Manual Page
+--------------------------------------------------------------------------------------------------------------------------------
+link - Manual Page [q to exit]
 
 NAME
 
@@ -80,5 +82,4 @@ DESCRIPTION
 
 AUTHOR
     Alejandro Perez Casas
-
-
+--------------------------------------------------------------------------------------------------------------------------------
