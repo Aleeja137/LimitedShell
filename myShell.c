@@ -78,7 +78,7 @@ int execute(int argc, char *argv[])
 
       int pid = fork();
       if (pid==0){
-         execvp("/home/alejandro/Desktop/Universidad/IOS/LimitedShell/bin/ls",&argv[1]);
+         execvp("/home/alejandro/Desktop/Universidad/IOS/LimitedShell/bin/ls",argv);
          exit(EXIT_SUCCESS);
       } else {
          int child_status;
@@ -90,7 +90,7 @@ int execute(int argc, char *argv[])
       
       int pid = fork();
       if (pid==0){
-         execvp("/home/alejandro/Desktop/Universidad/IOS/LimitedShell/bin/cat",&argv[1]);
+         execvp("/home/alejandro/Desktop/Universidad/IOS/LimitedShell/bin/cat",argv);
          exit(EXIT_SUCCESS);
       } else {
          int child_status;
@@ -102,7 +102,7 @@ int execute(int argc, char *argv[])
    {
       int pid = fork();
       if (pid==0){
-         execvp("/home/alejandro/Desktop/Universidad/IOS/LimitedShell/bin/link",&argv[1]);
+         execvp("/home/alejandro/Desktop/Universidad/IOS/LimitedShell/bin/link",argv);
          exit(EXIT_SUCCESS);
       } else {
          int child_status;
@@ -114,13 +114,15 @@ int execute(int argc, char *argv[])
    {
       int pid = fork();
       if (pid==0){
-         execvp("/home/alejandro/Desktop/Universidad/IOS/LimitedShell/bin/cp",&argv[1]);
+         execvp("/home/alejandro/Desktop/Universidad/IOS/LimitedShell/bin/cp",argv);
          exit(EXIT_SUCCESS);
       } else {
          int child_status;
          waitpid(pid,&child_status,0);
       }
       
+   } else {
+      printf("Invalid command %s\n",argv[0]);
    }
 
    
@@ -137,15 +139,8 @@ main ()
    while (1) {
       write(0,Prompt, strlen(Prompt));
       if (read_args(&argc, args, MAXARGS, &eof) && argc > 0) {
-
-         //TODO No detecta el exit
-         if (strcmp(args[0],"exit"))
-         {
-            exit(EXIT_SUCCESS);
-         } else {
-            execute(argc, args);
-         }
-         
+         //TODO que al leer exit acabe
+         execute(argc, args);
       }
       if (eof) exit(0);
    }
