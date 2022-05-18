@@ -37,19 +37,19 @@ int main(int argc, char **argv)
 
      if (argc<1) // internal error, can ingore
     {
-        printf("cat error: too few arguments for function call\n");
+        fprintf(stderr,"cat error: too few arguments for function call\n");
         exit(EXIT_FAILURE);
     }
 
     else if (argc==1 && strcmp(argv[0],"cat")!=0) // internal error, can ignore
     {
-        printf("cat error: caller name and executable name do not coincide\n");
+        fprintf(stderr,"cat error: caller name and executable name do not coincide\n");
         exit(EXIT_FAILURE);
     }
 
     else if (argc==1) // cat
     {
-        printf("cat error: file path not specified\n");
+        fprintf(stderr,"cat error: file path not specified\n");
         exit(EXIT_FAILURE);
         
     }
@@ -73,7 +73,7 @@ int main(int argc, char **argv)
 
     else
     {
-        printf("ls error: too many arguments for function call\n");
+        fprintf(stderr,"ls error: too many arguments for function call\n");
         exit(EXIT_FAILURE);
     }
     

@@ -18,7 +18,7 @@ int copyFile(int argc, char **argv){
     files[0] = open(argv[1], O_RDONLY);
     if (files[0] == -1)
     {
-        printf("cp error: unable to open original file, check path and/or permissions\n");
+        fprintf(stderr,"cp error: unable to open original file, check path and/or permissions\n");
         exit(EXIT_FAILURE);
         return -1;
     }
@@ -27,14 +27,14 @@ int copyFile(int argc, char **argv){
     files[1] = open(argv[2],O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH);
     if (files[1] == -1) 
     {
-        printf("cp error: unable to open target file, check path and/or permissions\n");
+        fprintf(stderr,"cp error: unable to open target file, check path and/or permissions\n");
         exit(EXIT_FAILURE);
         return -1;
     }
 
     while ((count = read(files[0], buffer, sizeof(buffer))) != 0)
     {
-         write(files[1], buffer, count);
+        write(files[1], buffer, count);
     }
 
     printf("File copied!\n");
@@ -47,7 +47,7 @@ int main(int argc, char **argv)
 
     if (argc<3) // null / cp / cp path
     {
-        printf("cp error: too few arguments for function call\n");
+        fprintf(stderr,"cp error: too few arguments for function call\n");
         exit(EXIT_FAILURE);
     }
 
@@ -59,7 +59,7 @@ int main(int argc, char **argv)
     }
     else
     {
-        printf("cp error: too many arguments for function call\n");
+        fprintf(stderr,"cp error: too many arguments for function call\n");
         exit(EXIT_FAILURE);
     }
 }
