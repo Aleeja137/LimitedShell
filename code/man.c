@@ -66,7 +66,7 @@ int main(int argc, char **argv)
         lenght = 578;
     } else if (argc == 2 && strcmp(argv[1],"link")==0){
         offset = 4*129 + 149 + 596 + 488 + 578;
-        lenght = 515;
+        lenght = 478;
     } else {
         printf("man error: too many arguments\n");
         exit(EXIT_FAILURE);

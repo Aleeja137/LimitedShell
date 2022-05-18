@@ -95,6 +95,7 @@ int execute(int argc, char *argv[])
    } else {
       cpid = wait(NULL);
    }
+   
 
 }
 

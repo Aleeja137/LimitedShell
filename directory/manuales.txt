@@ -78,7 +78,7 @@ DESCRIPTION
     Arguments
         link demands the path to the file to wich the hard link will be created, and also the name (path) of the hard link (ex: link /path/original.txt /path2/newName.txt)
     Options
-        -u requires the same arguments, but it unlinks the name from the file, that is, deletes the hard link (if arguments are valid)
+        -u requires one path, and the option -u can go anywhere (ex: link -u path / link path -u)
 
 AUTHOR
     Alejandro Perez Casas
