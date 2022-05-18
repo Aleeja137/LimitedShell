@@ -5,55 +5,46 @@
 #include <fcntl.h>
 #include <string.h>
 #include <stdlib.h>
+#include <unistd.h>
+
 
 #define first_bytes 149;
-#define ls_bytes 594;
+#define ls_bytes 596;
 #define cat_bytes 488;
-#define cp_bytes 576;
+#define cp_bytes 578;
 #define link_bytes 515;
 #define line_bytes 129;
+#define BUFFER_SIZE 1
 
 
 void writeManual(int b_offset, int b_write)
 {
 
-    int   read_size;
-    char *buf[600];
+    int   read_size, Temp;
+    char  buffer[BUFFER_SIZE];
 
+    int count = 0;
+    int file = open("/home/alejandro/Desktop/Universidad/IOS/LimitedShell/documentation/manuals.txt",O_RDONLY); 
 
-
-    int count = 0, ch;
-    FILE *fp;
-
-    fp = fopen("/home/alejandro/Desktop/Universidad/IOS/LimitedShell/documentation/manuals.txt","r"); 
-
-    if( fp == NULL )
+    if( file < 0)
     {
         printf("Could not open manual file\n");
         exit(EXIT_FAILURE);
     }
 
-    while( ( ch = fgetc(fp) ) != EOF && count < b_write)
+    lseek(file,b_offset,SEEK_SET);
+
+    while( count < b_write )
     {
-        //buf[count++] = ch; // make Buffer global variable
+        read_size = read(file, buffer, BUFFER_SIZE);
         count++;
-        printf("%c",ch);
+        Temp = write(1, &buffer, read_size);
     } 
-    printf("\n");
-    fclose(fp);
+    Temp = write(1,"\n",2);
+    close(file);
 
-    // // add offset from start to b_offset
-    // int file = open("/home/alejandro/Desktop/Universidad/IOS/LimitedShell/documentation/manuals.txt",O_RDONLY);
-    // lseek(file,b_offset,SEEK_SET);
-    // //write only b_wrtie bytes in console and exit
-
-    // while ((read_size = read(file, buf, BUFFER_SIZE)) > 0)
-    //     write(1, &buffer, read_size);
-
-    // close(file);
 }
   
-// Driver code
 int main(int argc, char **argv)
 {   
 
@@ -63,21 +54,23 @@ int main(int argc, char **argv)
     int lenght = 0;
 
     if(argc==1){
-        lenght = first_bytes;       
+        lenght = 149;       
     } else if (argc == 2 && strcmp(argv[1],"ls")==0){
-        offset = 0*line_bytes + first_bytes;
-        lenght = ls_bytes;
+        offset = 149+129;
+        lenght = 596;
     } else if (argc == 2 && strcmp(argv[1],"cat")==0){
-        offset = 1*line_bytes + first_bytes + ls_bytes;
-        lenght = cat_bytes;
+        offset = 2*129 + 149 + 596;
+        lenght = 488;
     } else if (argc == 2 && strcmp(argv[1],"cp")==0){
-        offset = 2*line_bytes + first_bytes + ls_bytes + cat_bytes;
-        lenght = cp_bytes;
+        offset = 3*129 + 149 + 596 + 488;
+        lenght = 578;
     } else if (argc == 2 && strcmp(argv[1],"link")==0){
-        offset = 3*line_bytes + first_bytes + ls_bytes + cat_bytes + cp_bytes;
-        lenght = link_bytes;
+        offset = 4*129 + 149 + 596 + 488 + 578;
+        lenght = 515;
     } else {
         printf("man error: too many arguments\n");
+        exit(EXIT_FAILURE);
+        return -1;
     }
 
     writeManual(offset,lenght);
