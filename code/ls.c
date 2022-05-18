@@ -6,6 +6,7 @@
 #include <sys/stat.h>
 #include <unistd.h>
 #include <limits.h>  
+#include <time.h>
 
 #define MAX_CHARS 200
 
@@ -14,46 +15,64 @@
 int readDirectory(char *path, int longVersion){
 
 
-    DIR *dp;
-    struct dirent *dirp;
-    dp = opendir(path);
-    char Path[MAX_CHARS];
+    DIR *dp;             // Contains the directory
+    struct dirent *dirp; // Contaions the directory entries
+    char Path[MAX_CHARS]; // Contains the path of the direc tory entries
+    struct stat Stat;     // Contains the info about the directory entries for the -l option
     int Tmp;
-    struct stat Stat;
+
+    dp = opendir(path);  
 
     if(dp){ //directory exists
         if (longVersion==1)
         {   
-            while (1)  {
+            while (1)  { // We iterate the directory entries
                 dirp = readdir(dp);
-                if (dirp == 0) break;  /* reached end of directory entries */
-                /* process file (other than . and ..) */
+                if (dirp == 0) break;  // No more entries, break
+
+                // Ignore '.' and '..' files
                 if (strcmp(dirp->d_name,".") != 0 &&
                     strcmp(dirp->d_name,"..") != 0)  {
-                    /* print file name */
-                    printf("%s",dirp->d_name);
-                    /* build full path name of the file, for stat() */
+                    
+                    // Get (build) the path for stat
                     Path[0] = 0;
                     strcat(Path,path);
                     strcat(Path,"/");
                     strcat(Path,dirp->d_name);
-                        Tmp = stat(Path,&Stat); 
-                        /* Stat now contains lots of info about the file,
-                            e.g. its size, though we are not interested in
-                            most of that info here */
-                        if (S_ISDIR(Stat.st_mode)) printf("*");
-                        printf("\n");
+
+                    // Call stat    
+                    Tmp = stat(Path,&Stat); 
+
+                    //Prepare last modified time from seconds from epoch to human readable
+                    time_t rawtime = Stat.st_atime;
+                    struct tm  ts;
+                    char       bufTime[80];
+
+                    // Format time, "ddd yyyy-mm-dd hh:mm:ss zzz"
+                    ts = *localtime(&rawtime);
+                    strftime(bufTime, sizeof(bufTime), "%a %Y-%m-%d %H:%M:%S %Z", &ts);
+
+                    // Print the information
+                    printf("Name: %s - Size (bytes): %ld - Last modified: %s ",dirp->d_name,Stat.st_size,bufTime);
+                    if (S_ISDIR(Stat.st_mode)) printf("*");
+                    printf("\n");
                 }
             }
-            exit(EXIT_SUCCESS);
-        } else if (longVersion==0)
+        } else if (longVersion==0) // No -l option, just print the names
         {
-            while ((dirp = readdir(dp)) != NULL){
-                printf("%s\n", dirp->d_name);
+           while (1)  { // We iterate the directory entries
+                dirp = readdir(dp);
+                if (dirp == 0) break;  // No more entries, break
+                
+                // Ignore '.' and '..' files
+                if (strcmp(dirp->d_name,".") != 0 &&
+                    strcmp(dirp->d_name,"..") != 0)  {
+                    printf("%s\n", dirp->d_name);
+                }
             }
-            closedir(dp);
-            exit(EXIT_SUCCESS);
         }
+        closedir(dp);
+        exit(EXIT_SUCCESS);
         return 1;
     } else { //directory does not exist
         printf("ls error: directory not found\n");
@@ -63,6 +82,9 @@ int readDirectory(char *path, int longVersion){
 
 }
 int main(int argc, char **argv){
+
+
+    // In the main method, we will just check if the input command is valid
 
    int result=1;
 
@@ -112,7 +134,7 @@ int main(int argc, char **argv){
     }
     
 
-    if(result<0){
+    if(result<0){  // Invalid path
         exit(EXIT_FAILURE);
     }
 }
