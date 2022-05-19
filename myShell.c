@@ -68,15 +68,15 @@ int read_args(int* argcp, char* args[], int max, int* eofp)
 
 int execute(int argc, char *argv[])
 {  
-   
-   for (size_t i = 0; i < argc; i++)
+   int i;
+   for (i = 0; i < argc; i++)
    {
       printf("Value of argument %ld is %s\n",i,argv[i]);
    }
 
    //Detects the appearance of the '|' character, and saves the position (only one appearance is accepted and saved)
    int hayPipe = -1;
-   for (int i = 0; i < argc; i++)
+   for (i = 0; i < argc; i++)
    {
       if (strcmp(argv[i],"|")==0 && hayPipe==-1){
          hayPipe=i;
