@@ -40,6 +40,7 @@ SYNOPSIS
 DESCRIPTION
     Arguments 
         cat demands a path to the file whose contents will be written on the standard output (ex: cat path/file.txt)
+        if no arguments are passed cat reads from standard input, until reaching an EOF line (CTR+D)
     Options
         cat allows writting in append mode to another file by adding a second path (ex: cat path1 path2).
 
