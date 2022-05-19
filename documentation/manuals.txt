@@ -23,6 +23,7 @@ DESCRIPTION
     Options
         -l Provides more information about the entries, such as name (same as without -l), size in bytes of the entry, last modified date and '*' character if it is a folder.
         Also, -l can be written in any order (ls path -l or ls -l path).
+        -p Provides the absolute paths to the files. This is usefull for piping commands. Also, -p can be written in any order (ls path -p or ls -p path).
 AUTHOR
     Alejandro Perez Casas
 --------------------------------------------------------------------------------------------------------------------------------

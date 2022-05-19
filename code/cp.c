@@ -47,7 +47,7 @@ int main(int argc, char **argv)
 
     if (argc<3) // null / cp / cp path
     {
-        fprintf(stderr,"cp error: too few arguments for function call\n");
+        fprintf(stderr,"cp error: too few arguments for function call, see man cp for help\n");
         exit(EXIT_FAILURE);
     }
 
@@ -59,7 +59,7 @@ int main(int argc, char **argv)
     }
     else
     {
-        fprintf(stderr,"cp error: too many arguments for function call\n");
+        fprintf(stderr,"cp error: too many arguments for function call, see man cp for help\n");
         exit(EXIT_FAILURE);
     }
 }

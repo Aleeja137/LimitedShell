@@ -9,7 +9,7 @@
 
 
 #define first_bytes 149;
-#define ls_bytes 596;
+#define ls_bytes 749;
 #define cat_bytes 488;
 #define cp_bytes 578;
 #define link_bytes 515;
@@ -28,7 +28,7 @@ void writeManual(int b_offset, int b_write)
 
     if( file < 0)
     {
-        printf("Could not open manual file\n");
+        fprintf(stderr,"Could not open manual file\n");
         exit(EXIT_FAILURE);
     }
 
@@ -57,15 +57,15 @@ int main(int argc, char **argv)
         lenght = 149;       
     } else if (argc == 2 && strcmp(argv[1],"ls")==0){
         offset = 149+129;
-        lenght = 596;
+        lenght = 749;
     } else if (argc == 2 && strcmp(argv[1],"cat")==0){
-        offset = 2*129 + 149 + 596;
+        offset = 2*129 + 149 + 749;
         lenght = 488;
     } else if (argc == 2 && strcmp(argv[1],"cp")==0){
-        offset = 3*129 + 149 + 596 + 488;
+        offset = 3*129 + 149 + 749 + 488;
         lenght = 578;
     } else if (argc == 2 && strcmp(argv[1],"link")==0){
-        offset = 4*129 + 149 + 596 + 488 + 578;
+        offset = 4*129 + 149 + 749 + 488 + 578;
         lenght = 478;
     } else {
         printf("man error: too many arguments\n");

@@ -52,7 +52,7 @@ int main(int argc, char* argv[])
 
     if (argc<1) //internal error, can ingore
     {
-        fprintf(stderr,"link error: too few arguments for function call\n");
+        fprintf(stderr,"link error: too few arguments for function call, see man link for help\n");
         exit(EXIT_FAILURE);
     }
 
@@ -111,7 +111,7 @@ int main(int argc, char* argv[])
 
     else
     {
-        fprintf(stderr,"link error: too many arguments for function call\n");
+        fprintf(stderr,"link error: too many arguments for function call, see man link for help\n");
         exit(EXIT_FAILURE);
     }
 

@@ -37,7 +37,7 @@ int main(int argc, char **argv)
 
      if (argc<1) // internal error, can ingore
     {
-        fprintf(stderr,"cat error: too few arguments for function call\n");
+        fprintf(stderr,"cat error: too few arguments for function call, see man cat for help\n");
         exit(EXIT_FAILURE);
     }
 
@@ -73,7 +73,7 @@ int main(int argc, char **argv)
 
     else
     {
-        fprintf(stderr,"ls error: too many arguments for function call\n");
+        fprintf(stderr,"cat error: too many arguments for function call, see man cat for help\n");
         exit(EXIT_FAILURE);
     }
     
